@@ -243,10 +243,14 @@ async def main(page: flet.Page):
         default_config = settings_file_config[SETTINGS_FILE_DEFAULT]
         download_directory = default_config[SETTINGS_FILE_DOWNLOAD_DIRECTORY]
 
+        def hide_buttons_row():
+            buttons_row.visible = False
+            buttons_row.update()
+
+
         # Logic here run via generator: https://flet.dev/docs/cookbook/auto-update/#updating-part-way-through-a-handler
         def set_up_files_download_ui():
             go_from_download()
-            settings_button.visible = False
 
             set_download_text(download_location = download_directory)
             download_display_text.visible = True
@@ -283,7 +287,7 @@ async def main(page: flet.Page):
         files_largest_to_smallest = sorted(directory_files_to_process, key = lambda d: d.file_size, reverse = True)
         api_key = default_config[SETTINGS_FILE_API_KEY]
 
-        download_files_ui_updates = [set_up_files_download_ui]
+        download_files_ui_updates = [hide_buttons_row, set_up_files_download_ui]
 
         def handle_file(file_to_download: FileToDownload):
             file_icon = download_files_to_icons[file_to_download]
@@ -315,7 +319,9 @@ async def main(page: flet.Page):
             display_column.controls = [directory_names[current_directory], directory_pages[current_directory]]
 
             go_to_download(download_directory_set = True)
-            settings_button.visible = True
+            
+            buttons_row.visible = True
+            buttons_row.update()
 
         download_files_ui_updates.append(tear_down_file_download_ui)
 
