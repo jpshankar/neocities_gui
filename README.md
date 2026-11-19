@@ -7,7 +7,7 @@ You'll need to set your API key in Settings:
 ![Settings](screenshots/settings.png)
 ![API key in Settings](screenshots/api_key.png)
 
-(See [Neocities docs] for how to get it.)
+(See [Neocities docs](https://neocities.org/api#quick-start) for how to get it.)
 
 ## Download
 
